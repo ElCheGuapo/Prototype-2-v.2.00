@@ -5,16 +5,18 @@ using UnityEngine;
 public class JumpScare : MonoBehaviour
 {
     //countdown variables
-    float currentTime = 4f;
-    float startingTime = 4f;
+    float currentTime = 8f;
+    float startingTime = 8f;
 
     bool jumpscareHappened = false;
+    bool laughHappened = false;
 
     //movement variables
     Vector2 velocity;
 
     //JumpScare pre-requisits
     public AudioSource Growl;
+    public AudioSource Laugh;
     public GameObject ThePlayer;
     public GameObject JumpCam;
     public GameObject Flickering;
@@ -37,7 +39,7 @@ public class JumpScare : MonoBehaviour
         if (velocity.y == 0)
         {
             currentTime -=1 * Time.deltaTime;
-            Debug.Log(currentTime);
+            Debug.Log("countdown");
             if (currentTime <= 0)
             {
                 StartCoroutine(EndJump());
@@ -45,12 +47,33 @@ public class JumpScare : MonoBehaviour
                 Debug.Log("jumpscare");
                 currentTime = startingTime;
             }
+            if (currentTime <= 4)
+            {
+                Debug.Log("Woooosh woooosh, you better move hihi");
+                StartCoroutine(StartLaugh());
+                laughHappened = true;
+                startingTime = 4f;
+            }
         }
         else
         {
             currentTime = startingTime;
+            Debug.Log("debug");
         }
 
+    }
+
+    IEnumerator StartLaugh() {
+        if (jumpscareHappened == false)
+        {
+            Laugh.Play();
+            Flickering.SetActive(true);
+
+            yield return new WaitForSeconds(2.03f);
+            Flickering.SetActive(false);
+            yield break;
+        }
+            
     }
 
     IEnumerator EndJump() {
