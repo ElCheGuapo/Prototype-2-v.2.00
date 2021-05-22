@@ -27,10 +27,10 @@ public class DistanceTrigger : MonoBehaviour
         {
             sfx.Play();
             Flickering.SetActive(true);
+            eventHappened = true;
 
             yield return new WaitForSeconds(8.03f);
             Flickering.SetActive(false);
-            eventHappened = true;
             yield break;
         }
             

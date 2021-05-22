@@ -117,7 +117,5 @@ public class JumpScare : MonoBehaviour
         {
             Debug.Log("game over");
         }
-            
-
     }
 }
